@@ -34,14 +34,14 @@ class BinanceRestAPI:
     """Binance REST API client.
 
     Attributes:
-        host: HTTP request host.
         access_key: Account's ACCESS KEY.
         secret_key: Account's SECRET KEY.
+        host: HTTP request host, default `https://api.binance.com`.
     """
 
-    def __init__(self, host, access_key, secret_key):
+    def __init__(self, access_key, secret_key, host=None):
         """Initialize REST API client."""
-        self._host = host
+        self._host = host or "https://api.binance.com"
         self._access_key = access_key
         self._secret_key = secret_key
 
@@ -372,7 +372,7 @@ class BinanceTrade:
         self._orders = {}  # Order data. e.g. {order_no: order, ... }
 
         # Initialize our REST API client.
-        self._rest_api = BinanceRestAPI(self._host, self._access_key, self._secret_key)
+        self._rest_api = BinanceRestAPI(self._access_key, self._secret_key, self._host)
 
         # Create a loop run task to reset listen key every 30 minutes.
         LoopRunTask.register(self._reset_listen_key, 60 * 30)

@@ -37,15 +37,15 @@ class OKExRestAPI:
     """ OKEx REST API client.
 
     Attributes:
-        host: HTTP request host.
         access_key: Account's ACCESS KEY.
         secret_key: Account's SECRET KEY.
         passphrase: API KEY Passphrase.
+        host: HTTP request host, default `https://www.okex.com`
     """
 
-    def __init__(self, host, access_key, secret_key, passphrase):
+    def __init__(self, access_key, secret_key, passphrase, host=None):
         """Initialize."""
-        self._host = host
+        self._host = host or "https://www.okex.com"
         self._access_key = access_key
         self._secret_key = secret_key
         self._passphrase = passphrase
@@ -328,7 +328,7 @@ class OKExTrade:
         self._orders = {}  # Order objects. e.g. {"order_id": Order, ... }
 
         # Initializing our REST API client.
-        self._rest_api = OKExRestAPI(self._host, self._access_key, self._secret_key, self._passphrase)
+        self._rest_api = OKExRestAPI(self._access_key, self._secret_key, self._passphrase, self._host)
 
         # Create a loop run task to send ping message to server per 5 seconds.
         LoopRunTask.register(self._send_heartbeat_msg, 5)
