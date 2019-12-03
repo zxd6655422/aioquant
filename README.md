@@ -36,11 +36,11 @@
 ### 框架依赖
 
 - 运行环境
-	- python 3.5.3 或以上版本
+	- python 3.5.3 或以上版本(建议安装3.6版本)
 
 - 依赖python三方包
 	- aiohttp>=3.2.1
-	- aioamqp>=0.13.0
+	- aioamqp>=0.13.0(可选)
 	- motor>=2.0.0 (可选)
 
 - RabbitMQ服务器
