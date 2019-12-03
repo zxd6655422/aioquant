@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(
     name="aioquant",
-    version="1.0.0",
+    version="1.0.1",
     packages=[
         "aioquant",
         "aioquant.utils",
@@ -22,6 +22,7 @@ setup(
     ],
     install_requires=[
         "aiohttp==3.6.2",
-        "aioamqp==0.13.0"
+        "aioamqp==0.14.0",
+        "motor==2.0.0"
     ],
 )
