@@ -45,6 +45,123 @@ class BinanceRestAPI:
         self._access_key = access_key
         self._secret_key = secret_key
 
+    async def ping(self):
+        """Test connectivity.
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/v3/ping"
+        success, error = await self.request("GET", uri)
+        return success, error
+
+    async def get_server_time(self):
+        """Get server time.
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/v3/time"
+        success, error = await self.request("GET", uri)
+        return success, error
+
+    async def get_exchange_info(self):
+        """Get exchange information.
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/v3/exchangeInfo"
+        success, error = await self.request("GET", uri)
+        return success, error
+
+    async def get_orderbook(self, symbol, limit=10):
+        """Get latest orderbook information.
+
+        Args:
+            symbol: Symbol name, e.g. `BTCUSDT`.
+            limit: Number of results per request. (default 10)
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/v3/depth"
+        params = {
+            "symbol": symbol,
+            "limit": limit
+        }
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
+    async def get_trade(self, symbol, limit=500):
+        """Get latest trade information.
+
+        Args:
+            symbol: Symbol name, e.g. `BTCUSDT`.
+            limit: Number of results per request. (Default 500, max 1000.)
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/v3/trades"
+        params = {
+            "symbol": symbol,
+            "limit": limit
+        }
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
+    async def get_kline(self, symbol, interval="1m", start=None, end=None, limit=500):
+        """Get kline information.
+
+        Args:
+            symbol: Symbol name, e.g. `BTCUSDT`.
+            interval: Kline interval type, valid values: 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M
+            start: Start timestamp.
+            end: End timestamp.
+            limit: Number of results per request. (Default 500, max 1000.)
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+
+        Notes:
+            If start and end are not sent, the most recent klines are returned.
+        """
+        uri = "/api/v3/klines"
+        params = {
+            "symbol": symbol,
+            "interval": interval,
+            "limit": limit
+        }
+        if start and end:
+            params["startTime"] = start
+            params["endTime"] = end
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
+    async def get_average_price(self, symbol):
+        """Current average price for a symbol.
+
+        Args:
+            symbol: Symbol name, e.g. `BTCUSDT`.
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/v3/avgPrice"
+        params = {
+            "symbol": symbol
+        }
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
     async def get_user_account(self):
         """Get user account information.
 
@@ -58,64 +175,6 @@ class BinanceRestAPI:
             "timestamp": str(ts)
         }
         success, error = await self.request("GET", uri, params, auth=True)
-        return success, error
-
-    async def get_server_time(self):
-        """Get server time.
-
-        Returns:
-            success: Success results, otherwise it's None.
-            error: Error information, otherwise it's None.
-        """
-        uri = "/api/v1/time"
-        success, error = await self.request("GET", uri)
-        return success, error
-
-    async def get_exchange_info(self):
-        """Get exchange information.
-
-        Returns:
-            success: Success results, otherwise it's None.
-            error: Error information, otherwise it's None.
-        """
-        uri = "/api/v1/exchangeInfo"
-        success, error = await self.request("GET", uri)
-        return success, error
-
-    async def get_latest_ticker(self, symbol):
-        """Get latest ticker.
-
-        Args:
-            symbol: Symbol name, e.g. `BTCUSDT`.
-
-        Returns:
-            success: Success results, otherwise it's None.
-            error: Error information, otherwise it's None.
-        """
-        uri = "/api/v1/ticker/24hr"
-        params = {
-            "symbol": symbol
-        }
-        success, error = await self.request("GET", uri, params=params)
-        return success, error
-
-    async def get_orderbook(self, symbol, limit=10):
-        """Get orderbook.
-
-        Args:
-            symbol: Symbol name, e.g. `BTCUSDT`.
-            limit: Number of results per request. (default 10)
-
-        Returns:
-            success: Success results, otherwise it's None.
-            error: Error information, otherwise it's None.
-        """
-        uri = "/api/v1/depth"
-        params = {
-            "symbol": symbol,
-            "limit": limit
-        }
-        success, error = await self.request("GET", uri, params=params)
         return success, error
 
     async def create_order(self, action, symbol, price, quantity, client_order_id=None):
@@ -233,7 +292,7 @@ class BinanceRestAPI:
             success: Success results, otherwise it's None.
             error: Error information, otherwise it's None.
         """
-        uri = "/api/v1/userDataStream"
+        uri = "/api/v3/userDataStream"
         success, error = await self.request("POST", uri)
         return success, error
 
@@ -247,7 +306,7 @@ class BinanceRestAPI:
             success: Success results, otherwise it's None.
             error: Error information, otherwise it's None.
         """
-        uri = "/api/v1/userDataStream"
+        uri = "/api/v3/userDataStream"
         params = {
             "listenKey": listen_key
         }
@@ -264,7 +323,7 @@ class BinanceRestAPI:
             success: Success results, otherwise it's None.
             error: Error information, otherwise it's None.
         """
-        uri = "/api/v1/userDataStream"
+        uri = "/api/v3/userDataStream"
         params = {
             "listenKey": listen_key
         }
