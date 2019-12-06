@@ -83,7 +83,7 @@ class BinanceRestAPI:
 
         Args:
             symbol: Symbol name, e.g. `BTCUSDT`.
-            limit: Number of results per request. (default 10)
+            limit: Number of results per request. (default 10, max 5000.)
 
         Returns:
             success: Success results, otherwise it's None.
@@ -122,8 +122,8 @@ class BinanceRestAPI:
         Args:
             symbol: Symbol name, e.g. `BTCUSDT`.
             interval: Kline interval type, valid values: 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M
-            start: Start timestamp.
-            end: End timestamp.
+            start: Start timestamp(millisecond).
+            end: End timestamp(millisecond).
             limit: Number of results per request. (Default 500, max 1000.)
 
         Returns:

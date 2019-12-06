@@ -21,16 +21,11 @@
 - 定制化Docker容器，分布式配置、部署运行；
 - 量化交易Web管理系统，通过管理工具，轻松实现对策略、风控、资产、服务器等进程或资源的动态管理；
 
-- `AIOQuant` 交易系统各大模块如下：
-<p>
-  <img src ="https://open-space.ifclover.com/aioq_framework2.png" align="middle"/>
-</p>
+- `AIOQuant` 交易系统各大模块
+![](./docs/images/aioq_framework2.png)
 
 - `AIOQuant` 分布式管理交易系统
-<p>
-  <img src ="https://open-space.ifclover.com/aioq_framework.jpg" align="middle"/>
-</p>
-
+![](./docs/images/aioq_framework.jpg)
 
 
 ### 框架依赖
