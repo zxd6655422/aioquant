@@ -528,7 +528,7 @@ class BinanceTrade:
             self._orders[order_id] = order
             SingleTask.run(self._order_update_callback, copy.copy(order))
 
-        SingleTask.run(self._init_callback, True, None)
+        SingleTask.run(self._init_callback, True)
 
     async def create_order(self, action, price, quantity, *args, **kwargs):
         """Create an order.
