@@ -5,7 +5,7 @@ from distutils.core import setup
 
 setup(
     name="aioquant",
-    version="1.0.3",
+    version="1.0.4",
     packages=[
         "aioquant",
         "aioquant.utils",
