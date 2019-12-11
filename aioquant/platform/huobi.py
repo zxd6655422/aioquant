@@ -577,7 +577,8 @@ class HuobiTrade:
             for order_info in order_infos:
                 order_id = str(order_info["id"])
                 order_ids.append(order_id)
-
+            if not order_ids:
+                return True, None
             _, error = await self._rest_api.revoke_orders(order_ids)
             if error:
                 SingleTask.run(self._error_callback, error)
