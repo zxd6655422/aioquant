@@ -428,7 +428,7 @@ class BinanceTrade:
         self._raw_symbol = self._symbol.replace("/", "")  # Row symbol name, same as Binance Exchange.
         self._listen_key = None  # Listen key for Websocket authentication.
         self._assets = {}  # Asset data. e.g. {"BTC": {"free": "1.1", "locked": "2.2", "total": "3.3"}, ... }
-        self._orders = {}  # Order data. e.g. {order_no: order, ... }
+        self._orders = {}  # Order data. e.g. {order_id: order, ... }
 
         # Initialize our REST API client.
         self._rest_api = BinanceRestAPI(self._access_key, self._secret_key, self._host)
@@ -445,10 +445,6 @@ class BinanceTrade:
         await self._ws.ping()
 
     @property
-    def assets(self):
-        return copy.copy(self._assets)
-
-    @property
     def orders(self):
         return copy.copy(self._orders)
 
@@ -457,8 +453,7 @@ class BinanceTrade:
         return self._rest_api
 
     async def _init_websocket(self):
-        """Initialize Websocket connection.
-        """
+        """Initialize Websocket connection."""
         # Get listen key first.
         success, error = await self._rest_api.get_listen_key()
         if error:
@@ -561,7 +556,7 @@ class BinanceTrade:
         Returns:
             Success or error, see bellow.
         """
-        # If len(order_nos) == 0, you will cancel all orders for this symbol(initialized in Trade object).
+        # If len(order_ids) == 0, you will cancel all orders for this symbol(initialized in Trade object).
         if len(order_ids) == 0:
             order_infos, error = await self._rest_api.get_open_orders(self._raw_symbol)
             if error:
@@ -574,7 +569,7 @@ class BinanceTrade:
                     return False, error
             return True, None
 
-        # If len(order_nos) == 1, you will cancel an order.
+        # If len(order_ids) == 1, you will cancel an order.
         if len(order_ids) == 1:
             success, error = await self._rest_api.revoke_order(self._raw_symbol, order_ids[0])
             if error:
@@ -583,7 +578,7 @@ class BinanceTrade:
             else:
                 return order_ids[0], None
 
-        # If len(order_nos) > 1, you will cancel multiple orders.
+        # If len(order_ids) > 1, you will cancel multiple orders.
         if len(order_ids) > 1:
             success, error = [], []
             for order_id in order_ids:
@@ -658,7 +653,7 @@ class BinanceTrade:
             order.remain = float(msg["q"]) - float(msg["z"])
             order.status = status
             order.utime = msg["T"]
-            SingleTask.run(self._order_update_callback, copy.copy(order))
 
+            SingleTask.run(self._order_update_callback, copy.copy(order))
             if status in [ORDER_STATUS_FAILED, ORDER_STATUS_CANCELED, ORDER_STATUS_FILLED]:
                 self._orders.pop(order_id)

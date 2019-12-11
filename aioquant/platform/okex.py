@@ -334,10 +334,6 @@ class OKExTrade:
         LoopRunTask.register(self._send_heartbeat_msg, 5)
 
     @property
-    def assets(self):
-        return copy.copy(self._assets)
-
-    @property
     def orders(self):
         return copy.copy(self._orders)
 
@@ -432,7 +428,7 @@ class OKExTrade:
                 self._update_order(data)
 
     async def create_order(self, action, price, quantity, *args, **kwargs):
-        """ Create an order.
+        """Create an order.
 
         Args:
             action: Trade direction, `BUY` or `SELL`.
@@ -529,7 +525,7 @@ class OKExTrade:
             return order_ids, None
 
     def _update_order(self, order_info):
-        """ Order update.
+        """Order update.
 
         Args:
             order_info: Order information.
@@ -579,6 +575,5 @@ class OKExTrade:
         order.utime = utime
 
         SingleTask.run(self._order_update_callback, copy.copy(order))
-
         if status in [ORDER_STATUS_FAILED, ORDER_STATUS_CANCELED, ORDER_STATUS_FILLED]:
             self._orders.pop(order_id)

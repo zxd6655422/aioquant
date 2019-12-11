@@ -72,6 +72,8 @@ class Trade:
 
         if platform == const.BINANCE:
             from aioquant.platform.binance import BinanceTrade as T
+        elif platform == const.HUOBI:
+            from aioquant.platform.huobi import HuobiTrade as T
         elif platform == const.OKEX:
             from aioquant.platform.okex import OKExTrade as T
         else:
