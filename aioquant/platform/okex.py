@@ -50,6 +50,72 @@ class OKExRestAPI:
         self._secret_key = secret_key
         self._passphrase = passphrase
 
+    async def get_orderbook(self, symbol, depth=None, limit=10):
+        """Get latest orderbook information.
+
+        Args:
+            symbol: Symbol name, e.g. `BTC-USDT`.
+            depth: Aggregation of the order book. e.g . 0.1, 0.001.
+            limit: Number of results per request. (default 10, max 200.)
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/spot/v3/instruments/{symbol}/book".format(symbol=symbol)
+        params = {
+            "size": limit
+        }
+        if depth:
+            params["depth"] = depth
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
+    async def get_trade(self, symbol, limit=10):
+        """Get latest trade information.
+
+        Args:
+            symbol: Symbol name, e.g. `BTC-USDT`.
+            limit: Number of results per request. (Default 10, max 60.)
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+        """
+        uri = "/api/spot/v3/instruments/{symbol}/trades".format(symbol=symbol)
+        params = {
+            "limit": limit
+        }
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
+    async def get_kline(self, symbol, interval="60", start=None, end=None):
+        """Get kline information.
+
+        Args:
+            symbol: Symbol name, e.g. `BTCUSDT`.
+            interval: Kline interval type, valid values: 60/180/300/900/1800/3600/7200/14400/21600/43200/86400/604800.
+            start: Start time in ISO 8601. e.g. 2019-03-19T16:00:00.000Z
+            end: End time in ISO 8601. e.g. 2019-03-19T16:00:00.000Z
+
+        Returns:
+            success: Success results, otherwise it's None.
+            error: Error information, otherwise it's None.
+
+        Notes:
+            Both parameters will be ignored if either one of start or end are not provided. The last 200 records of
+            data will be returned if the time range is not specified in the request.
+        """
+        uri = "/api/spot/v3/instruments/{symbol}/candles".format(symbol=symbol)
+        params = {
+            "granularity": interval
+        }
+        if start and end:
+            params["start"] = start
+            params["end"] = end
+        success, error = await self.request("GET", uri, params=params)
+        return success, error
+
     async def get_user_account(self):
         """Get account asset information.
 
