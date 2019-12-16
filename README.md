@@ -81,11 +81,18 @@ python src/main.py config.json
 ```
 
 
-### 使用文档
-- [Python Asyncio](https://docs.python.org/3/library/asyncio.html)
-- [安装RabbitMQ](docs/others/rabbitmq_deploy.md)
-- [日志打印](docs/others/logger.md)
-- [定时任务](docs/others/tasks.md)
+### 推荐课程
+[第1期 高频交易介绍](https://zhuanlan.zhihu.com/p/94076741)  
+[第2期 一分钟上手，开启自己的第一笔程序化交易](https://zhuanlan.zhihu.com/p/95000601)  
+[第3期 利用REST API拉取行情数据](https://zhuanlan.zhihu.com/p/95282478)  
+[第4期 使用实时行情动态挂单](https://zhuanlan.zhihu.com/p/95829419)  
+[第5期 API报错 & 订单成交](https://zhuanlan.zhihu.com/p/96587726)  
+[第6期 优雅的处理未完成订单](https://zhuanlan.zhihu.com/p/96838420)  
+[第7期 配置文件](https://zhuanlan.zhihu.com/p/96944936)  
+[第8期 日志打印](https://zhuanlan.zhihu.com/p/97009923)  
+[第9期 服务心跳 & 协程任务](https://zhuanlan.zhihu.com/p/97136414)  
+[第10期 Order订单模块](https://zhuanlan.zhihu.com/p/97239035)  
+[第11期 Trade交易模块](https://zhuanlan.zhihu.com/p/97450603)  
 
 
 ### 有任何问题，欢迎联系
