@@ -30,11 +30,11 @@ ORDER_STATUS_CANCELED = "CANCELED"  # The order that canceled.
 ORDER_STATUS_FAILED = "FAILED"  # The order that failed.
 
 # Future order trade type.
-TRADE_TYPE_NONE = "NONE"  # Unknown type, some Exchange's order information couldn't known the type of trade.
-TRADE_TYPE_BUY_OPEN = "BUY_OPEN"  # Buy open, action = BUY & quantity > 0.
-TRADE_TYPE_SELL_OPEN = "SELL_OPEN"  # Sell open, action = SELL & quantity < 0.
-TRADE_TYPE_SELL_CLOSE = "SELL_CLOSE"  # Sell close, action = SELL & quantity > 0.
-TRADE_TYPE_BUY_CLOSE = "BUY_CLOSE"  # Buy close, action = BUY & quantity < 0.
+TRADE_TYPE_NONE = 0  # Unknown type, some Exchange's order information couldn't known the type of trade.
+TRADE_TYPE_BUY_OPEN = 1  # Buy open, action = BUY & quantity > 0.
+TRADE_TYPE_SELL_OPEN = 2  # Sell open, action = SELL & quantity < 0.
+TRADE_TYPE_SELL_CLOSE = 3  # Sell close, action = SELL & quantity > 0.
+TRADE_TYPE_BUY_CLOSE = 4  # Buy close, action = BUY & quantity < 0.
 
 
 class Order:
