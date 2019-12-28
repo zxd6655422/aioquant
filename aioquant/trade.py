@@ -79,8 +79,8 @@ class Trade:
         else:
             logger.error("platform error:", platform, caller=self)
             e = Error("platform error")
-            SingleTask.run(self._error_callback, e)
-            SingleTask.run(self._init_callback, False)
+            SingleTask.run(self._on_error_callback, e)
+            SingleTask.run(self._on_init_callback, False)
             return
         self._t = T(**kwargs)
 
