@@ -76,7 +76,7 @@ class Websocket:
             SingleTask.run(self._connected_callback)
         SingleTask.run(self._receive)
 
-    @async_method_locker("Websocket.reconnect.locker", False)
+    @async_method_locker("Websocket.reconnect.locker", False, 30)
     async def reconnect(self) -> None:
         """Re-connect to Websocket server."""
         logger.warn("reconnecting to Websocket server right now!", caller=self)
@@ -199,8 +199,8 @@ class AsyncHttpRequests(object):
             result = await response.json()
         except:
             result = await response.text()
-            logger.warn("response data is not json format!", "method:", method, "url:", url, "headers:", headers,
-                        "params:", params, "body:", body, "data:", data, "code:", code, "result:", result, caller=cls)
+            logger.debug("response data is not json format!", "method:", method, "url:", url, "headers:", headers,
+                         "params:", params, "body:", body, "data:", data, "code:", code, "result:", result, caller=cls)
         logger.debug("method:", method, "url:", url, "headers:", headers, "params:", params, "body:", body,
                      "data:", data, "code:", code, "result:", json.dumps(result), caller=cls)
         return code, result, None

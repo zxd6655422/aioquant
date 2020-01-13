@@ -57,6 +57,36 @@ def get_date_str(fmt="%Y%m%d", delta_days=0):
     return str_d
 
 
+def ts_to_datetime_str(ts=None, fmt="%Y-%m-%d %H:%M:%S"):
+    """Convert timestamp to date time string.
+
+    Args:
+        ts: Timestamp, millisecond.
+        fmt: Date time format, default is `%Y-%m-%d %H:%M:%S`.
+
+    Returns:
+        Date time string.
+    """
+    if not ts:
+        ts = get_cur_timestamp()
+    dt = datetime.datetime.fromtimestamp(int(ts))
+    return dt.strftime(fmt)
+
+
+def datetime_str_to_ts(dt_str, fmt="%Y-%m-%d %H:%M:%S"):
+    """Convert date time string to timestamp.
+
+    Args:
+        dt_str: Date time string.
+        fmt: Date time format, default is `%Y-%m-%d %H:%M:%S`.
+
+    Returns:
+        ts: Timestamp, millisecond.
+    """
+    ts = int(time.mktime(datetime.datetime.strptime(dt_str, fmt).timetuple()))
+    return ts
+
+
 def get_utc_time():
     """Get current UTC time."""
     utc_t = datetime.datetime.utcnow()

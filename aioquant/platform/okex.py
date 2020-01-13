@@ -457,13 +457,14 @@ class OKExTrade:
             # Fetch orders from server. (open + partially filled)
             order_infos, error = await self._rest_api.get_open_orders(self._raw_symbol)
             if error:
-                e = Error("get open orders error: {}".format(msg))
+                e = Error("get open orders error: {}".format(error))
                 SingleTask.run(self._error_callback, e)
                 SingleTask.run(self._init_callback, False)
                 return
             if len(order_infos) > 100:
                 logger.warn("order length too long! (more than 100)", caller=self)
             for order_info in order_infos:
+                order_info["last_fill_px"] = order_info["price_avg"]
                 order_info["ctime"] = order_info["created_at"]
                 order_info["utime"] = order_info["timestamp"]
                 self._update_order(order_info)
@@ -602,6 +603,7 @@ class OKExTrade:
         order_id = str(order_info["order_id"])
         state = order_info["state"]
         remain = float(order_info["size"]) - float(order_info["filled_size"])
+        avg_price = order_info.get("last_fill_px")
         ctime = tools.utctime_str_to_ms(order_info["ctime"])
         utime = tools.utctime_str_to_ms(order_info["utime"])
 
@@ -637,6 +639,7 @@ class OKExTrade:
             self._orders[order_id] = order
         order.remain = remain
         order.status = status
+        order.avg_price = avg_price if avg_price else 0
         order.ctime = ctime
         order.utime = utime
 

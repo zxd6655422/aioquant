@@ -245,6 +245,7 @@ class HuobiRestAPI:
 
     async def get_open_orders(self, symbol, limit=500):
         """Get all open order information.
+
         Args:
             symbol: Symbol name, e.g. `ethusdt`.
             limit: The number of orders to return, [1, 500].
@@ -523,7 +524,7 @@ class HuobiTrade:
             elif order_type == ORDER_TYPE_MARKET:
                 t = "buy-market"
             else:
-                e = Error("order_type error! order_type:: {}".format(order_type))
+                e = Error("order_type error! order_type: {}".format(order_type))
                 logger.error(e, caller=self)
                 SingleTask.run(self._error_callback, e)
                 return None, "order type error"

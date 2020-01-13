@@ -16,7 +16,7 @@ import functools
 METHOD_LOCKERS = {}
 
 
-def async_method_locker(name, wait=True):
+def async_method_locker(name, wait=True, timeout=1):
     """ In order to share memory between any asynchronous coroutine methods, we should use locker to lock our method,
         so that we can avoid some un-prediction actions.
 
@@ -24,6 +24,7 @@ def async_method_locker(name, wait=True):
         name: Locker name.
         wait: If waiting to be executed when the locker is locked? if True, waiting until to be executed, else return
             immediately (do not execute).
+        timeout: Timeout time to be locked, default is 1s.
 
     NOTE:
         This decorator must to be used on `async method`.
@@ -43,7 +44,8 @@ def async_method_locker(name, wait=True):
                 return
             try:
                 await locker.acquire()
-                return await method(*args, **kwargs)
+                return await asyncio.wait_for(method(*args, **kwargs), timeout)
+                # return await method(*args, **kwargs)
             finally:
                 locker.release()
         return wrapper

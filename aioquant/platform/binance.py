@@ -412,6 +412,7 @@ class BinanceTrade:
             logger.error(e, caller=self)
             SingleTask.run(kwargs["error_callback"], e)
             SingleTask.run(kwargs["init_callback"], False)
+            return
 
         self._account = kwargs["account"]
         self._strategy = kwargs["strategy"]
@@ -516,6 +517,7 @@ class BinanceTrade:
                 "quantity": order_info["origQty"],
                 "remain": float(order_info["origQty"]) - float(order_info["executedQty"]),
                 "status": status,
+                "avg_price": order_info["price"],
                 "ctime": order_info["time"],
                 "utime": order_info["updateTime"]
             }
@@ -652,6 +654,7 @@ class BinanceTrade:
                 self._orders[order_id] = order
             order.remain = float(msg["q"]) - float(msg["z"])
             order.status = status
+            order.avg_price = msg["L"]
             order.utime = msg["T"]
 
             SingleTask.run(self._order_update_callback, copy.copy(order))
