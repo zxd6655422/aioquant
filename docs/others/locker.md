@@ -9,7 +9,7 @@
 > 使用  
 
 ```python
-    from quant.utils.decorator import async_method_locker
+    from aioquant.utils.decorator import async_method_locker
     
     @async_method_locker("unique_locker_name")
     async def func_foo():
