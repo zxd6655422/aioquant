@@ -93,6 +93,16 @@ python src/main.py config.json
 [第9期 服务心跳 & 协程任务](https://zhuanlan.zhihu.com/p/97136414)  
 [第10期 Order订单模块](https://zhuanlan.zhihu.com/p/97239035)  
 [第11期 Trade交易模块](https://zhuanlan.zhihu.com/p/97450603)  
+[第12期 并发 & 锁](https://zhuanlan.zhihu.com/p/97704965)
+[第13期 Market行情模块 & 行情服务器](https://www.bilibili.com/video/av79695611/)
+[第14期 Position合约持仓模块](https://www.bilibili.com/video/av84079197/)
+[第15期 现货搬砖套利原理](https://www.bilibili.com/video/av86045742/)
+[第16期 分析历史行情数据](https://www.bilibili.com/video/av86060852/)
+[第17期 现货搬砖套利策略编写](https://www.bilibili.com/video/av86493743/)
+[第18期 行情数据存储](https://www.bilibili.com/video/av88433058/)
+[第19期 推送钉钉消息](https://www.bilibili.com/video/av88463345/)
+[第20期 Bollinger Bands 布林带策略](https://www.bilibili.com/video/av91044647/)
+[第21期 一个简单的做市商策略](https://www.bilibili.com/video/av93027310/)
 
 
 ### 有任何问题，欢迎联系
