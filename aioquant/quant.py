@@ -29,7 +29,6 @@ class AIOQuant:
         self._get_event_loop()
         self._load_settings(config_file)
         self._init_logger()
-        self._init_event_center()
         self._do_heartbeat()
         return self
 
@@ -73,13 +72,6 @@ class AIOQuant:
     def _init_logger(self) -> None:
         """Initialize logger."""
         logger.initLogger(**config.log)
-
-    def _init_event_center(self) -> None:
-        """Initialize event center."""
-        if not config.rabbitmq:
-            return
-        from aioquant.event import EventCenter
-        self.event_center = EventCenter()
 
     def _do_heartbeat(self) -> None:
         """Start server heartbeat."""
