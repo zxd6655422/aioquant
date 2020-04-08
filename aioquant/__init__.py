@@ -9,7 +9,7 @@ Email:  huangtao@ifclover.com
 """
 
 __author__ = "HuangTao"
-__version__ = (1, 0, 6)
+__version__ = (1, 0, 7)
 
 
 from aioquant.quant import AIOQuant
