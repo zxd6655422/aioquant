@@ -13,7 +13,7 @@
 # 导入模块
 from aioquant import const
 from aioquant.utils import logger
-from aioquant.market import Market, Orderbook
+from aioquant.market import MarketSubscribe, Orderbook
 
 
 # 订阅订单薄行情，注意此处注册的回调函数是 `async` 异步函数，回调参数为 `orderbook` 对象，数据结构查看下边的介绍。
@@ -26,7 +26,7 @@ async def on_event_orderbook_update(orderbook: Orderbook):
     logger.info("timestamp:", orderbook.timestamp)  # 打印行情更新时间戳(毫秒)
     
 
-Market(const.MARKET_TYPE_ORDERBOOK, const.BINANCE, "ETH/BTC", on_event_orderbook_update)
+MarketSubscribe(const.MARKET_TYPE_ORDERBOOK, const.BINANCE, "ETH/BTC", on_event_orderbook_update)
 ```
 
 > 使用同样的方式，可以订阅任意的行情

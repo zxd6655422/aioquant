@@ -103,6 +103,11 @@ python src/main.py config.json
 [第19期 推送钉钉消息](https://www.bilibili.com/video/av88463345/)  
 [第20期 Bollinger Bands 布林带策略](https://www.bilibili.com/video/av91044647/)  
 [第21期 一个简单的做市商策略](https://www.bilibili.com/video/av93027310/)  
+[第22期 火币永续合约REST API模块](https://www.bilibili.com/video/BV1k5411t7bb/)  
+[第23期 火币永续合约Trade模块](https://www.bilibili.com/video/BV1GV411Z766/)  
+[第24期 Market行情系统升级](https://www.bilibili.com/video/BV1rk4y1R7gk/)  
+[第25期 现货-合约无风险套利](https://www.bilibili.com/video/BV15A411b78b/)  
+[第26期 合约的无风险套利](https://www.bilibili.com/video/BV1AK4y1k7un/)  
 
 
 ### 有任何问题，欢迎联系
