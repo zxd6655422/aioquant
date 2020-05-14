@@ -5,7 +5,7 @@
 from aioquant import const
 from aioquant.utils import logger
 from aioquant.configure import config
-from aioquant.market import Market
+from aioquant.market import MarketSubscribe
 from aioquant.trade import Trade
 from aioquant.const import BINANCE
 from aioquant.order import Order
@@ -41,7 +41,7 @@ class MyStrategy:
         self.trader = Trade(**cc)
 
         # 订阅行情
-        Market(const.MARKET_TYPE_ORDERBOOK, const.BINANCE, self.symbol, self.on_event_orderbook_update)
+        MarketSubscribe(const.MARKET_TYPE_ORDERBOOK, const.BINANCE, self.symbol, self.on_event_orderbook_update)
 
     async def on_event_orderbook_update(self, orderbook: Orderbook):
         """ 订单薄更新
